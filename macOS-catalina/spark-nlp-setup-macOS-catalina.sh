@@ -3,6 +3,7 @@
 PYSPARK="3.0.2"
 SPARKNLP=$PUBLIC_VERSION
 SPARKHOME="$PWD/spark-3.1.1-bin-hadoop2.7"
+OCR_VERSION=3.2.0-spark30
 
 echo "Setup PySpark $PYSPARK and Spark NLP $SPARKNLP and Spark OCR $OCR_VERSION and Spark NLP for Healthcare $JSL_VERSION"
 
@@ -53,5 +54,4 @@ export SPARK_HOME=$SPARKHOME
 ## NLP Healthcare Jar
 curl https://pypi.johnsnowlabs.com/$SECRET/spark-nlp-jsl-$JSL_VERSION.jar --output spark-nlp-jsl-$JSL_VERSION.jar
 ## OCR Jar
-OCR_VERSION=3.2.0-spark30
 curl https://pypi.johnsnowlabs.com/$JSL_OCR_SECRET/jars/spark-ocr-assembly-$OCR_VERSION.jar --output spark-ocr-assembly-$OCR_VERSION.jar
