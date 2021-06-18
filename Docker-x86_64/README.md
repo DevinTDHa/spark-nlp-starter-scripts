@@ -1,5 +1,5 @@
 # Running the example with Docker
-0. Make sure your licenses are in this sub folder.
+0. Make sure your licenses are in this sub folder (`Docker-x86_64`).
 1. Build the image with
     ```
     docker build -t sparknlp:latest .
