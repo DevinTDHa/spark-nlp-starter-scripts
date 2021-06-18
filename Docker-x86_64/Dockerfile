@@ -55,7 +55,7 @@ RUN pip3 install --upgrade pip
 ARG pyspark_version=3.1.1
 ENV PYSPARK=${pyspark_version}
 
-RUN pip3 install --no-cache-dir pyspark==${pyspark_version} notebook==5.* numpy pandas findspark
+RUN pip3 install --no-cache-dir pyspark==${pyspark_version} notebook==5.* numpy pandas findspark implicits scikit-image pillow
 
 RUN jupyter notebook --generate-config
 USER root
