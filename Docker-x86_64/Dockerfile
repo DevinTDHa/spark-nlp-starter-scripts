@@ -1,7 +1,7 @@
 #Download base image ubuntu 18.04
 FROM ubuntu:18.04
 
-ENV NB_USER jovyan
+ENV NB_USER johnsnow
 ENV NB_UID 1000
 ENV HOME /home/${NB_USER}
 
@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     pkg-config \
     software-properties-common \
-    graphviz
+    graphviz \
+    git
 
 RUN adduser --disabled-password \
     --gecos "Default user" \
@@ -52,13 +53,11 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN pip3 install --upgrade pip
 
-ARG pyspark_version=3.1.1
-ENV PYSPARK=${pyspark_version}
+ARG PYSPARK_VERSION=3.1.1
+ENV PYSPARK=${PYSPARK_VERSION}
 
-RUN pip3 install --no-cache-dir pyspark==${pyspark_version} notebook==5.* numpy pandas findspark implicits scikit-image pillow
+RUN pip3 install --no-cache-dir pyspark==${PYSPARK_VERSION} notebook==5.* numpy pandas findspark implicits scikit-image pillow termcolor
 
-RUN jupyter notebook --generate-config
-USER root
 RUN chown -R ${NB_UID} ${HOME}
 
 # Set licensed package versions in environment variable from json
@@ -74,6 +73,11 @@ RUN bash /build_scripts/install_packages.sh
 # Specify the default command to run
 USER ${NB_USER}
 WORKDIR ${HOME}
+
+ARG DOWNLOAD_WORKSHOP=false
+RUN ! $DOWNLOAD_WORKSHOP || \
+    (git clone https://github.com/JohnSnowLabs/spark-nlp-workshop.git && \
+    git clone https://github.com/JohnSnowLabs/spark-ocr-workshop.git)
 
 COPY build_scripts/start_notebook.sh start_notebook.sh
 EXPOSE 8888
