@@ -40,7 +40,7 @@ RUN apt-get update && \
 
 # Fix certificate issues
 RUN apt-get update && \
-    apt-get install ca-certificates-java && \
+    apt-get install ca-certificates ca-certificates-java && \
     apt-get clean && \
     update-ca-certificates -f;
 # Setup JAVA_HOME -- useful for docker commandline
@@ -51,7 +51,7 @@ RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/" >> ~/.bashrc
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip3 install --upgrade pip
+RUN pip3 install --no-cache-dir --upgrade pip
 
 ARG PYSPARK_VERSION=3.1.1
 ENV PYSPARK=${PYSPARK_VERSION}
