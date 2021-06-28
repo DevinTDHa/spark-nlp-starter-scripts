@@ -1,13 +1,33 @@
 # Running the example with Docker
-0. Make sure your licenses are in this sub folder (`Docker-x86_64`).
-1. Build the image with
-    ```
-    docker build -t sparknlp:latest .
-    ```
-     - You can change the PySpark version by adding `--build-arg PYSPARK_VERSION=3.1.1` to the build command.
-     - If you would like to include the Spark NLP and Spark OCR Workshop in the image, you can add `--build-arg DOWNLOAD_WORKSHOP=true` to the build command.
-2. Run the image with
-    ```bash
-    docker run --rm -it -v $PWD:/home/johnsnow/data -p 8888:8888 sparknlp:latest
-    ```
-    This will run a notebook at localhost:8888 and the current folder will be mounted into the container. Downloaded jars will be available at `/jars/` in the container.
+
+## 1. Build the image
+
+```
+docker build -t sparknlp:latest .
+```
+
+The build can be configure with the following Build Args (can be set with `--build-arg ARG=VALUE`):
+| ARG                 | Default | Description                                                                                                                 |
+| ------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `PYSPARK_VERSION`   | `3.0.2` | Sets PySpark version                                                                                                        |
+| `SPARKNLP_VERSION`  | `3.1.0` | Sets Spark NLP version                                                                                                      |
+| `INSTALL_NLU`       | `true`  | Installs [NLU](https://github.com/JohnSnowLabs/nlu)                                                                         |
+| `DOWNLOAD_WORKSHOP` | `false` | Downloads the [Spark NLP Workshop](https://github.com/JohnSnowLabs/spark-nlp-workshop) into the image ( might take a while) |
+
+## 2. Run the image
+
+```bash
+bash run_notebook.sh
+```
+
+This will run a notebook at http://localhost:8888 and the current folder will be mounted into the container.
+
+### NLU
+
+If you wish to run streamlit with NLU, you can run for example:
+
+```bash
+bash run_nlu.sh https://raw.githubusercontent.com/JohnSnowLabs/nlu/master/examples/streamlit/01_dashboard.py
+```
+
+Which will then run on http://localhost:8501.
