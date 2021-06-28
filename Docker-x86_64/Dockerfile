@@ -83,6 +83,6 @@ ARG DOWNLOAD_WORKSHOP=false
 RUN ! ${DOWNLOAD_WORKSHOP} || git clone https://github.com/JohnSnowLabs/spark-nlp-workshop.git
 
 RUN mkdir -p build_scripts
-COPY build_scripts .
+COPY ./build_scripts ./build_scripts
 EXPOSE 8888
 CMD ["bash", "build_scripts/start_notebook.sh"]
