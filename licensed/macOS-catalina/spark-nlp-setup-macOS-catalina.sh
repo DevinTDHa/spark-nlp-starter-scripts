@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYSPARK="3.0.2"
+PYSPARK=$PYSPARK
 SPARKNLP=$PUBLIC_VERSION
 SPARKHOME="$PWD/spark-3.1.1-bin-hadoop2.7"
 # export OCR_BASE_VERSION=$(echo "$OCR_VERSION" | grep -Eo "[0-9].[0-9].[0-9]")
@@ -48,7 +48,7 @@ export SPARK_HOME=$SPARKHOME
 ! pip3 install --upgrade pyspark==$PYSPARK spark-nlp==$SPARKNLP findspark
 ! pip3 install --upgrade spark-nlp-jsl==$JSL_VERSION  --extra-index-url https://pypi.johnsnowlabs.com/$SECRET
 ! pip3 install --upgrade scikit-image pillow==8.1.2 implicits
-! pip3 install https://pypi.johnsnowlabs.com/$JSL_OCR_SECRET/spark-ocr/spark-ocr-$OCR_BASE_VERSION.$OCR_SPARK_VERSION.tar.gz
+! pip3 install https://pypi.johnsnowlabs.com/$JSL_OCR_SECRET/spark-ocr/spark-ocr-$OCR_BASE_VERSION+$OCR_SPARK_VERSION.tar.gz
 
 # NLP Jar
 #curl https://s3.amazonaws.com/auxdata.johnsnowlabs.com/public/jars/spark-nlp-assembly-$SPARKNLP.jar
